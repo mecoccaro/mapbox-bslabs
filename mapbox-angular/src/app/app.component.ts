@@ -3,6 +3,7 @@ import {environment} from '../environments/environment';
 import * as mapboxgl from 'mapbox-gl'
 // @ts-ignore
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import {mark} from "@angular/compiler-cli/src/ngtsc/perf/src/clock";
 
 @Component({
   selector: 'app-root',
@@ -43,27 +44,13 @@ export class AppComponent implements OnInit{
     map.addControl(geocoder);
 
     map.on('load', function() {
-      map.addSource('single-point', {
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: []
-        }
-      });
-
-      map.addLayer({
-        id: 'point',
-        source: 'single-point',
-        type: 'circle',
-        paint: {
-          'circle-radius': 10,
-          'circle-color': '#448ee4'
-        }
-      });
-
+      const marketLL = marker.getLngLat()
       geocoder.on('result', function(e: { result: { geometry: any; }; }) {
         // @ts-ignore
-        map.getSource('single-point').setData(e.result.geometry);
+        console.log(e.result.geometry.coordinates)
+        marker.setLngLat(e.result.geometry.coordinates)
+        marker.setPopup(new mapboxgl.Popup().setText('Longitud: '+ marketLL.lng + ', Latitud: ' + marketLL.lat))
+        marker.togglePopup()
       });
     });
   }
