@@ -2,17 +2,9 @@
 
 ## Requisitos
 
-* Instalar Angular
+* Instalar paquetes
 ```
-ng install -g @angular/cli
-```
-
-* Instalar mapbox-gl y mapbox-gl-geocoder
-```
-npm install --save-dev mapbox-gl
-```
-```
-npm install --save-dev @mapbox/mapbox-gl-geocoder
+npm install
 ```
 
 * Agregar credenciales de mapbox a las variables de ambiente de angular ``/mapbox-angular/src/enviroments/enviroments.ts`` Crear la variable ``mapboxKey``
